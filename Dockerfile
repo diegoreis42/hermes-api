@@ -1,24 +1,7 @@
-# Base image
-FROM node:18-alpine
 
-USER merlin
+FROM postgres:latest
 
-# Create app directory
-WORKDIR /usr/src/app
 
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package*.json ./
-
-# Install app dependencies
-RUN npm ci
-
-ENV NODE_ENV production
-
-# Bundle app source
-COPY . .
-
-# Creates a "dist" folder with the production build
-RUN npm run build
-
-# Start the server using the production build
-CMD [ "node", "dist/main.js" ]
+ENV POSTGRES_DB=testdb
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=pass123

@@ -11,7 +11,7 @@ import { User } from 'src/domain/user/entities'
             port: 5432,
             username: 'postgres',
             password: 'pass123',
-            database: 'test',
+            database: 'testdb',
             entities: [User],
             synchronize: true,
         }),
