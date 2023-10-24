@@ -7,7 +7,7 @@ import { UsersUseCase } from 'src/domain/user/usecases'
 
 @Module({
     imports: [TypeOrmModule.forFeature([User])],
-    exports: [TypeOrmModule, IUsersUseCases],
+    exports: [TypeOrmModule, IUsersService],
     providers: [
         {
             provide: IUsersUseCases,

@@ -6,17 +6,17 @@ import {
     UsePipes,
     ValidationPipe,
 } from '@nestjs/common'
+import { IAuthUseCases } from 'src/domain/auth/interfaces'
 import { RegisterUserDto } from 'src/domain/user/dtos'
-import { IUsersUseCases } from 'src/domain/user/interfaces'
 
 @UsePipes(new ValidationPipe({ whitelist: true }))
 @Injectable()
 @Controller('auth')
 export class AuthController {
-    constructor(private usersUseCases: IUsersUseCases) {}
+    constructor(private authUseCases: IAuthUseCases) {}
 
     @Post('register')
     register(@Body() body: RegisterUserDto) {
-        return this.usersUseCases.register(body)
+        return this.authUseCases.register(body)
     }
 }
