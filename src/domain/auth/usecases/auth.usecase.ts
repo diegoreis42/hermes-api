@@ -1,22 +1,28 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
-import { IAuthUseCases } from 'src/domain/auth/interfaces'
-import { RegisterUserDto } from 'src/domain/user/dtos'
-import { IUsersService } from 'src/domain/user/interfaces'
+import { Injectable } from '@nestjs/common';
+import { IAuthUseCases } from 'src/domain/auth/interfaces';
+import { RegisterUserDto } from 'src/domain/user/dtos';
+import { IUsersRepository, IUsersServices } from 'src/domain/user/interfaces';
+import * as bcrypt from 'bcrypt';
+import { AuthEnum } from 'src/domain/auth/enums';
 
 @Injectable()
 export class AuthUseCases implements IAuthUseCases {
-    constructor(private userService: IUsersService) {}
+    constructor(
+        private usersService: IUsersServices,
+        private usersRepository: IUsersRepository
+    ) {}
 
     async register(user: RegisterUserDto) {
-        const userExists = await this.userService.findOneByEmail(user.email)
+        await this.usersService.verifyEmailExists(user.email);
 
-        if (userExists) {
-            throw new HttpException(
-                'Usuario ja existe!',
-                HttpStatus.BAD_REQUEST
-            )
-        }
+        const newUser = await this.usersRepository.createOne({
+            ...user,
+            password: await bcrypt.hash(
+                user.password,
+                AuthEnum.HASH_SALT_ROUND
+            ),
+        });
 
-        return this.userService.createOne(user)
+        // retornar access token
     }
 }

@@ -11,6 +11,9 @@
         "/src/domain/user/dtos",
         "/src/domain/user/entities",
         "/src/domain/user/services",
-        "/src/domain/user/repositories"
+        "/src/domain/user/repositories",
+        "/src/domain/auth/interfaces",
+        "/src/domain/auth/constants",
+        "/src/domain/auth/usecases"
     ]
 }

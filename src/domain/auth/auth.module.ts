@@ -1,10 +1,10 @@
-import { Module } from '@nestjs/common'
-import { JwtModule } from '@nestjs/jwt'
-import { jwtConstants } from 'src/domain/auth/constants'
-import { AuthController } from 'src/domain/auth/controllers'
-import { IAuthUseCases } from 'src/domain/auth/interfaces'
-import { AuthUseCases } from 'src/domain/auth/usecases'
-import { UserModule } from 'src/domain/user'
+import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from 'src/domain/auth/constants';
+import { AuthController } from 'src/domain/auth/controllers';
+import { IAuthUseCases } from 'src/domain/auth/interfaces';
+import { AuthUseCases } from 'src/domain/auth/usecases';
+import { UserModule } from 'src/domain/user';
 
 @Module({
     controllers: [AuthController],

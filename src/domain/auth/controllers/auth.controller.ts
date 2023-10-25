@@ -5,9 +5,9 @@ import {
     Post,
     UsePipes,
     ValidationPipe,
-} from '@nestjs/common'
-import { IAuthUseCases } from 'src/domain/auth/interfaces'
-import { RegisterUserDto } from 'src/domain/user/dtos'
+} from '@nestjs/common';
+import { IAuthUseCases } from 'src/domain/auth/interfaces';
+import { RegisterUserDto } from 'src/domain/user/dtos';
 
 @UsePipes(new ValidationPipe({ whitelist: true }))
 @Injectable()
@@ -17,6 +17,6 @@ export class AuthController {
 
     @Post('register')
     register(@Body() body: RegisterUserDto) {
-        return this.authUseCases.register(body)
+        return this.authUseCases.register(body);
     }
 }
