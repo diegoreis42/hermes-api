@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { User } from 'src/domain/user/entities';
 import { IUsersRepository, IUsersServices } from 'src/domain/user/interfaces';
 
 @Injectable()
@@ -16,5 +17,18 @@ export class UsersServices implements IUsersServices {
         }
 
         return false;
+    }
+
+    async findByEmail(email: string): Promise<User> {
+        const user = await this.usersRepository.findOneByEmail(email);
+
+        if (!user) {
+            throw new HttpException(
+                'Usuario nao existe!',
+                HttpStatus.BAD_REQUEST
+            );
+        }
+
+        return user;
     }
 }

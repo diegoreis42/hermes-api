@@ -14,6 +14,8 @@
         "/src/domain/user/repositories",
         "/src/domain/auth/interfaces",
         "/src/domain/auth/constants",
-        "/src/domain/auth/usecases"
+        "/src/domain/auth/usecases",
+        "/src/domain/auth/enums",
+        "/src/domain/auth/services"
     ]
 }

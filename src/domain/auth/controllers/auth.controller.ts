@@ -3,9 +3,12 @@ import {
     Controller,
     Injectable,
     Post,
+    Request,
+    UseGuards,
     UsePipes,
     ValidationPipe,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { IAuthUseCases } from 'src/domain/auth/interfaces';
 import { RegisterUserDto } from 'src/domain/user/dtos';
 
@@ -18,5 +21,11 @@ export class AuthController {
     @Post('register')
     register(@Body() body: RegisterUserDto) {
         return this.authUseCases.register(body);
+    }
+
+    @UseGuards(AuthGuard('local'))
+    @Post('login')
+    login(@Request() req) {
+        return req;
     }
 }

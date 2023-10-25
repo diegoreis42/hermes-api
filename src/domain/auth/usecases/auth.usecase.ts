@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { IAuthService, IAuthUseCases } from 'src/domain/auth/interfaces';
-import { RegisterUserDto } from 'src/domain/user/dtos';
+import { RegisterUserDto, UserCredentialsDto } from 'src/domain/user/dtos';
 import { IUsersRepository, IUsersServices } from 'src/domain/user/interfaces';
 import * as bcrypt from 'bcrypt';
 import { AuthEnum } from 'src/domain/auth/enums';
@@ -25,5 +25,14 @@ export class AuthUseCases implements IAuthUseCases {
         });
 
         return this.authService.createAccessToken(newUser);
+    }
+
+    async login(user: UserCredentialsDto) {
+        const authUser = await this.usersService.findByEmail(user.email);
+        console.log(authUser);
+        if (await bcrypt.compare(user.password, authUser.password))
+            return this.authService.createAccessToken(authUser);
+
+        throw new HttpException('Senha incorreta', HttpStatus.BAD_REQUEST);
     }
 }

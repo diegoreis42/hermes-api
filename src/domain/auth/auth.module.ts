@@ -4,6 +4,7 @@ import { jwtConstants } from 'src/domain/auth/constants';
 import { AuthController } from 'src/domain/auth/controllers';
 import { IAuthService, IAuthUseCases } from 'src/domain/auth/interfaces';
 import { AuthService } from 'src/domain/auth/services';
+import { LocalStrategy } from 'src/domain/auth/strategies';
 import { AuthUseCases } from 'src/domain/auth/usecases';
 import { UserModule } from 'src/domain/user';
 
@@ -26,6 +27,8 @@ import { UserModule } from 'src/domain/user';
             provide: IAuthService,
             useClass: AuthService,
         },
+
+        LocalStrategy,
     ],
 })
 export class AuthModule {}
