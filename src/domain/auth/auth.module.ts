@@ -2,7 +2,8 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from 'src/domain/auth/constants';
 import { AuthController } from 'src/domain/auth/controllers';
-import { IAuthUseCases } from 'src/domain/auth/interfaces';
+import { IAuthService, IAuthUseCases } from 'src/domain/auth/interfaces';
+import { AuthService } from 'src/domain/auth/services';
 import { AuthUseCases } from 'src/domain/auth/usecases';
 import { UserModule } from 'src/domain/user';
 
@@ -20,6 +21,10 @@ import { UserModule } from 'src/domain/user';
         {
             provide: IAuthUseCases,
             useClass: AuthUseCases,
+        },
+        {
+            provide: IAuthService,
+            useClass: AuthService,
         },
     ],
 })

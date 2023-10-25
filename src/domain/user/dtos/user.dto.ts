@@ -17,7 +17,7 @@ export class UserDto {
 
     @IsString()
     @IsOptional()
-    nickName: string;
+    nickName?: string;
 
     @IsString()
     @MinLength(5)

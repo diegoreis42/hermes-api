@@ -12,7 +12,7 @@ import { UsersUseCase } from 'src/domain/user/usecases';
 
 @Module({
     imports: [TypeOrmModule.forFeature([User])],
-    exports: [TypeOrmModule, IUsersServices],
+    exports: [TypeOrmModule, IUsersServices, IUsersRepository],
     providers: [
         {
             provide: IUsersUseCases,
