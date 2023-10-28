@@ -1,16 +1,17 @@
 import {
     Body,
     Controller,
+    Get,
     Injectable,
     Post,
-    Request,
     UseGuards,
     UsePipes,
     ValidationPipe,
 } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthGuard } from 'src/domain/auth/guards';
 import { IAuthUseCases } from 'src/domain/auth/interfaces';
-import { RegisterUserDto } from 'src/domain/user/dtos';
+import { RegisterUserDto, UserCredentialsDto } from 'src/domain/user/dtos';
+import { GetUser } from 'src/shared/decorators';
 
 @UsePipes(new ValidationPipe({ whitelist: true }))
 @Injectable()
@@ -23,9 +24,14 @@ export class AuthController {
         return this.authUseCases.register(body);
     }
 
-    @UseGuards(AuthGuard('local'))
     @Post('login')
-    login(@Request() req) {
-        return req;
+    login(@Body() body: UserCredentialsDto) {
+        return this.authUseCases.login(body);
+    }
+
+    @Get('me')
+    @UseGuards(AuthGuard)
+    me(@GetUser() user) {
+        return user;
     }
 }

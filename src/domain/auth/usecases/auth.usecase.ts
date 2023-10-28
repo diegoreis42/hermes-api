@@ -29,7 +29,6 @@ export class AuthUseCases implements IAuthUseCases {
 
     async login(user: UserCredentialsDto) {
         const authUser = await this.usersService.findByEmail(user.email);
-        console.log(authUser);
         if (await bcrypt.compare(user.password, authUser.password))
             return this.authService.createAccessToken(authUser);
 
