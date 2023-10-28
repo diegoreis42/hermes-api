@@ -1,20 +1,20 @@
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
 
 @Entity()
 @Unique(['email', 'name'])
 export class User {
     @PrimaryGeneratedColumn('uuid')
-    id: number
+    id: number;
 
     @Column('varchar', { length: 60 })
-    email: string
+    email: string;
 
     @Column('varchar', { length: 100 })
-    name: string
+    name: string;
 
     @Column('varchar', { length: 50, nullable: true })
-    nickName: string
+    nickName: string;
 
     @Column()
-    password: string
+    password: string;
 }

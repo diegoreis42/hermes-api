@@ -1,30 +1,34 @@
-import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { RegisterUserDto, UserDto } from 'src/domain/user/dtos'
-import { User } from 'src/domain/user/entities'
-import { IUsersService } from 'src/domain/user/interfaces'
-import { Repository } from 'typeorm'
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { User } from 'src/domain/user/entities';
+import { IUsersRepository, IUsersServices } from 'src/domain/user/interfaces';
 
 @Injectable()
-export class UsersService implements IUsersService {
-    constructor(
-        @InjectRepository(User)
-        private usersRepository: Repository<User>
-    ) {}
+export class UsersServices implements IUsersServices {
+    constructor(private usersRepository: IUsersRepository) {}
 
-    createOne(user: RegisterUserDto): Promise<User> {
-        return this.usersRepository.save(this.usersRepository.create(user))
+    async verifyEmailExists(email: string): Promise<Boolean> {
+        const user = await this.usersRepository.findOneByEmail(email);
+
+        if (user) {
+            throw new HttpException(
+                'Email ja cadastrado!',
+                HttpStatus.BAD_REQUEST
+            );
+        }
+
+        return false;
     }
 
-    findAll(): Promise<User[]> {
-        return this.usersRepository.find()
-    }
+    async findByEmail(email: string): Promise<User> {
+        const user = await this.usersRepository.findOneByEmail(email);
 
-    findOneByEmail(email: string): Promise<User | null> {
-        return this.usersRepository.findOne({ where: { email: email } })
-    }
+        if (!user) {
+            throw new HttpException(
+                'Usuario nao existe!',
+                HttpStatus.BAD_REQUEST
+            );
+        }
 
-    async remove(id: number): Promise<void> {
-        await this.usersRepository.delete(id)
+        return user;
     }
 }

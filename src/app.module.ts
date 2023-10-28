@@ -1,7 +1,8 @@
-import { Module } from '@nestjs/common'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { DomainModule } from 'src/domain'
-import { User } from 'src/domain/user/entities'
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { DomainModule } from 'src/domain';
+import { User } from 'src/domain/user/entities';
 
 @Module({
     imports: [
@@ -16,6 +17,7 @@ import { User } from 'src/domain/user/entities'
             synchronize: true,
         }),
         DomainModule,
+        ConfigModule.forRoot(),
     ],
 })
 export class AppModule {}

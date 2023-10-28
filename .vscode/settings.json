@@ -1,0 +1,15 @@
+{
+  "exportall.config.folderListener": [
+    "/src/shared/decorators",
+    "/src/domain/auth",
+    "/src/domain/user/usecases",
+    "/src/domain/user/interfaces"
+  ],
+  "exportall.config.relExclusion": [
+    "/src/domain/auth/controllers",
+    "/src/domain/user/dtos",
+    "/src/domain/user/entities",
+    "/src/domain/user/services",
+    "/src/domain/user/repositories"
+  ]
+}
