@@ -4,9 +4,13 @@ import {
     IsOptional,
     IsString,
     MinLength,
+    IsUUID,
 } from 'class-validator';
 
 export class UserDto {
+    @IsUUID()
+    id: number;
+
     @IsEmail()
     @IsNotEmpty()
     email: string;
