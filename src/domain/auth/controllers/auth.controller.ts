@@ -3,15 +3,24 @@ import {
     Controller,
     Get,
     Injectable,
+    Param,
+    ParseIntPipe,
+    Patch,
     Post,
+    Redirect,
     UseGuards,
     UsePipes,
     ValidationPipe,
 } from '@nestjs/common';
 import { AuthGuard } from 'src/domain/auth/guards';
 import { IAuthUseCases } from 'src/domain/auth/interfaces';
-import { RegisterUserDto, UserCredentialsDto } from 'src/domain/user/dtos';
+import {
+    RegisterUserDto,
+    UpdateUserDto,
+    UserCredentialsDto,
+} from 'src/domain/user/dtos';
 import { GetUser } from 'src/shared/decorators';
+import { IdDto } from 'src/shared/dtos';
 
 @UsePipes(new ValidationPipe({ whitelist: true }))
 @Injectable()
@@ -33,5 +42,11 @@ export class AuthController {
     @UseGuards(AuthGuard)
     me(@GetUser() user) {
         return user;
+    }
+
+    @Patch(':id/reset-password')
+    @UseGuards(AuthGuard)
+    resetPassword(@Param() id: IdDto, @Body() userDto: UpdateUserDto) {
+        return this.authUseCases.resetPassword(id.id, userDto);
     }
 }

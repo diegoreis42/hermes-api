@@ -20,8 +20,22 @@ export class UsersServices implements IUsersServices {
         return false;
     }
 
+    // Refatorar os findBy para um so service que aceite options!
     async findByEmail(email: string): Promise<User> {
         const user = await this.usersRepository.findOneByEmail(email);
+
+        if (!user) {
+            throw new HttpException(
+                UserErrorsEnum.USER_NOT_EXISTS,
+                HttpStatus.BAD_REQUEST
+            );
+        }
+
+        return user;
+    }
+
+    async findById(id: number): Promise<User> {
+        const user = await this.usersRepository.findOne(id);
 
         if (!user) {
             throw new HttpException(
