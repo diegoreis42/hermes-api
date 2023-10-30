@@ -4,7 +4,6 @@ import { RegisterUserDto, UpdateUserDto, UserCredentialsDto } from 'src/domain/u
 import { IUsersRepository, IUsersServices } from 'src/domain/user/interfaces';
 import * as bcrypt from 'bcrypt';
 import { AuthEnum, AuthErrorsEnum } from 'src/domain/auth/enums';
-import { User } from 'src/domain/user/entities';
 
 @Injectable()
 export class AuthUseCases implements IAuthUseCases {
@@ -49,7 +48,7 @@ export class AuthUseCases implements IAuthUseCases {
                 HttpStatus.BAD_REQUEST
             )
 
-        const updatedUser  = await this.usersRepository.updateOne(id, {
+        const {password, ...updatedUser}  = await this.usersRepository.updateOne(id, {
             ...user,
             password: await bcrypt.hash(
                 user.password,
