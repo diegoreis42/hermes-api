@@ -1,9 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { IAuthService, IAuthUseCases } from 'src/domain/auth/interfaces';
-import { RegisterUserDto, UserCredentialsDto } from 'src/domain/user/dtos';
+import { RegisterUserDto, UpdateUserDto, UserCredentialsDto } from 'src/domain/user/dtos';
 import { IUsersRepository, IUsersServices } from 'src/domain/user/interfaces';
 import * as bcrypt from 'bcrypt';
-import { AuthEnum } from 'src/domain/auth/enums';
+import { AuthEnum, AuthErrorsEnum } from 'src/domain/auth/enums';
+import { User } from 'src/domain/user/entities';
 
 @Injectable()
 export class AuthUseCases implements IAuthUseCases {
@@ -16,7 +17,7 @@ export class AuthUseCases implements IAuthUseCases {
     async register(user: RegisterUserDto) {
         await this.usersService.verifyEmailExists(user.email);
 
-        const newUser = await this.usersRepository.createOne({
+        const { password, ...newUser } = await this.usersRepository.createOne({
             ...user,
             password: await bcrypt.hash(
                 user.password,
@@ -28,10 +29,35 @@ export class AuthUseCases implements IAuthUseCases {
     }
 
     async login(user: UserCredentialsDto) {
-        const authUser = await this.usersService.findByEmail(user.email);
-        if (await bcrypt.compare(user.password, authUser.password))
+        const {password, ...authUser} = await this.usersService.findByEmail(user.email);
+
+        if (await bcrypt.compare(user.password, password))
             return this.authService.createAccessToken(authUser);
 
-        throw new HttpException('Senha incorreta', HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+            AuthErrorsEnum.WRONG_PASSWORD,
+            HttpStatus.BAD_REQUEST
+        );
     }
+
+    async resetPassword(id: number, user: UpdateUserDto){
+        const authUser = await this.usersService.findById(id);
+        
+        if (await bcrypt.compare(user.password, authUser.password))
+            throw new HttpException(
+                AuthErrorsEnum.SAME_PASSWORD,
+                HttpStatus.BAD_REQUEST
+            )
+
+        const updatedUser  = await this.usersRepository.updateOne(id, {
+            ...user,
+            password: await bcrypt.hash(
+                user.password,
+                AuthEnum.HASH_SALT_ROUND
+            )
+        })
+        
+        return updatedUser;
+    }
+
 }
