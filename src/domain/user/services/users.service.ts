@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { User } from 'src/domain/user/entities';
+import { UserErrorsEnum } from 'src/domain/user/enums';
 import { IUsersRepository, IUsersServices } from 'src/domain/user/interfaces';
 
 @Injectable()
@@ -11,7 +12,7 @@ export class UsersServices implements IUsersServices {
 
         if (user) {
             throw new HttpException(
-                'Email ja cadastrado!',
+                UserErrorsEnum.EMAIL_ALREADY_EXISTS,
                 HttpStatus.BAD_REQUEST
             );
         }
@@ -19,12 +20,26 @@ export class UsersServices implements IUsersServices {
         return false;
     }
 
+    // Refatorar os findBy para um so service que aceite options!
     async findByEmail(email: string): Promise<User> {
         const user = await this.usersRepository.findOneByEmail(email);
 
         if (!user) {
             throw new HttpException(
-                'Usuario nao existe!',
+                UserErrorsEnum.USER_NOT_EXISTS,
+                HttpStatus.BAD_REQUEST
+            );
+        }
+
+        return user;
+    }
+
+    async findById(id: number): Promise<User> {
+        const user = await this.usersRepository.findOne(id);
+
+        if (!user) {
+            throw new HttpException(
+                UserErrorsEnum.USER_NOT_EXISTS,
                 HttpStatus.BAD_REQUEST
             );
         }
