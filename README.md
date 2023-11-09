@@ -15,6 +15,8 @@ para instalar as dependencias.
 4. execute
 ```
 docker buildx build [nome-do-container de banco de dados] .
+
+npm run docker
 ```
 
 5. por fim:
