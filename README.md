@@ -7,15 +7,18 @@ abaixo vao algumas instruçoes para rodar o projeto. Divirta-se :)
 1. clone o projeto
 2. vá para o diretório raiz do projeto
 3. Rode
-'''
+```
 npm i
-'''
-para instalar as dependencias
+```
+para instalar as dependencias.
+
 4. execute
-'''
+```
 docker buildx build [nome-do-container de banco de dados] .
-''' 
+```
+
 5. por fim:
-'''
+``` 
 npm run start:dev
-'''
+``` 
+
