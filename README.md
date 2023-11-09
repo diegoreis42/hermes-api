@@ -1,7 +1,7 @@
 ## Hermes API
 
 Bem-vind@ ao projeto Hermes, queremos fazer chats 'great again'
-abaixo vao algumas instruçoes para rodar o projeto. Divirta-se :)
+abaixo vão algumas instruções para rodar o projeto. Divirta-se :)
 
 ### Instalação
 1. clone o projeto
