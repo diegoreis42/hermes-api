@@ -31,4 +31,9 @@ export class AuthService implements IAuthService {
             throw new UnauthorizedException();
         }
     }
+
+    extractTokenFromHeader(req): string | undefined {
+        const [type, token] = req.headers.authorization?.split(' ') ?? [];
+        return type === 'Bearer' ? token : undefined;
+    }
 }

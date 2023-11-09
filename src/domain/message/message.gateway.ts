@@ -8,6 +8,7 @@ import {
     WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { SocketAuthMiddleware } from 'src/domain/auth/middlewares';
 import { IMessage } from 'src/domain/message/interfaces';
 
 @WebSocketGateway({
@@ -22,11 +23,15 @@ export class MessageGateway
 
     private logger: Logger = new Logger('ChatGateway');
 
-    afterInit(server: any) {
+    afterInit(client: Socket) {
+        client.use(SocketAuthMiddleware() as any)
+
+
         this.logger.log('Chat iniciado!');
     }
 
     @SubscribeMessage('message')
+    // o IMessage tem que ser um DTO!
     handleMessage(socket: Socket, mess: IMessage) {
         this.server.emit('message', mess);
     }

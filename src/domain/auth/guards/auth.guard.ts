@@ -8,14 +8,18 @@ import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { jwtConstants } from 'src/domain/auth/constants';
 import { Socket } from 'socket.io';
+import { IAuthService } from 'src/domain/auth/interfaces';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    constructor(private jwtService: JwtService) {}
+    constructor(
+        private jwtService: JwtService,
+        private authService: IAuthService
+    ) {}
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const request = context.switchToHttp().getRequest();
-        const token = this.extractTokenFromHeader(request);
+        const token = this.authService.extractTokenFromHeader(request);
 
         if (!token) {
             throw new UnauthorizedException();
@@ -31,14 +35,5 @@ export class AuthGuard implements CanActivate {
         }
 
         return true;
-    }
-
-    private extractTokenFromHeader(req: Request): string | undefined {
-        const [type, token] = req.headers.authorization?.split(' ') ?? [];
-        return type === 'Bearer' ? token : undefined;
-    }
-
-    private extractTokenFromHandshake(socket: Socket) {
-        return socket.handshake.query.token ?? undefined;
     }
 }
