@@ -9,7 +9,8 @@ import {
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { SocketAuthMiddleware } from 'src/domain/auth/middlewares';
-import { IMessage } from './interfaces';
+import { IMessage } from 'src/domain/message/interfaces';
+
 
 @WebSocketGateway({
     cors: { origin: '*' },
