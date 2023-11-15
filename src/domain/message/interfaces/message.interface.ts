@@ -1,4 +1,5 @@
-export class IMessage {
+
+export interface IMessage {
     text: string;
-    to: string;
+    room: string;
 }

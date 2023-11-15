@@ -11,6 +11,7 @@ import { Server, Socket } from 'socket.io';
 import { SocketAuthMiddleware } from 'src/domain/auth/middlewares';
 import { IMessage } from 'src/domain/message/interfaces';
 
+
 @WebSocketGateway({
     cors: { origin: '*' },
     namespace: '/chat',
@@ -30,17 +31,19 @@ export class MessageGateway
     }
 
     @SubscribeMessage('message')
-    // o IMessage tem que ser um DTO!
-    handleMessage(socket: Socket, mess: IMessage) {
-        this.server.to(mess.to).emit('message', mess.text);
+    handleMessage(socket: Socket, data: string) {
+        const mess: IMessage = JSON.parse(data);
+
+        this.server.to(mess.room).emit('message', mess.text);
     }
 
     handleDisconnect(client: Socket) {
         this.logger.log(`Client disconnected: ${client.id}`);
+        this.server.emit('userDisconnected', client.id);
     }
 
     handleConnection(client: Socket) {
         this.logger.log(`Client connected: ${client.id}`);
-        this.server.emit('message', client.id);
+        this.server.emit('userConnected', client.id);
     }
 }

@@ -18,9 +18,7 @@
         "test:cov": "jest --coverage",
         "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
         "test:e2e": "jest --config ./test/jest-e2e.json",
-        "docker": "sudo docker run --name elefantinho -e POSTGRES_DB=testdb -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=pass123 -p 5432:5432 -d elefantinho",
-        "docker stop": "sudo docker container stop elefantinho",
-        "docker rm": "sudo docker container rm elefantinho"
+        "docker": "sudo docker run --name db -e POSTGRES_DB=testdb -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=pass123 -p 5432:5432 -d db"
     },
     "dependencies": {
         "@nestjs/common": "^10.2.7",
