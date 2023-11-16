@@ -1,3 +1,5 @@
-import { RegisterUserDto } from 'src/domain/user/dtos';
+import { UpdateUserDto } from 'src/domain/user/dtos';
 
-export abstract class IUsersUseCases {}
+export abstract class IUsersUseCases {
+    abstract editUser(id: number, updateUser: UpdateUserDto);
+}
