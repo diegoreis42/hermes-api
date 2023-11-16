@@ -1,8 +1,9 @@
 import { Type } from 'class-transformer';
-import { IsString, IsUUID } from 'class-validator';
+import { IsUUID } from 'class-validator';
 
 
 export class IdDto {
     @IsUUID()
+    @Type(() => Number)
     id: number;
 }
