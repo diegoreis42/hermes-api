@@ -31,8 +31,8 @@ export class MessageGateway
     }
 
     @SubscribeMessage('message')
-    handleMessage(socket: Socket, mess: MessageDto) {
-        this.server.emit('message', mess);
+    handleMessage(socket: Socket, mess: IMessage) {
+        socket.broadcast.emit('message', mess);
     }
 
     handleDisconnect(client: Socket) {
