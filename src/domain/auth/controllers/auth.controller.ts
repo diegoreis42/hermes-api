@@ -2,12 +2,11 @@ import {
     Body,
     Controller,
     Get,
+    HttpCode,
     Injectable,
     Param,
-    ParseIntPipe,
     Patch,
     Post,
-    Redirect,
     UseGuards,
     UsePipes,
     ValidationPipe,
@@ -34,6 +33,7 @@ export class AuthController {
     }
 
     @Post('login')
+    @HttpCode(200)
     login(@Body() body: UserCredentialsDto) {
         return this.authUseCases.login(body);
     }
