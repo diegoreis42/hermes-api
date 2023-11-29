@@ -13,6 +13,7 @@ abaixo vão algumas instruções para rodar o projeto. Divirta-se :)
 2. Vá para o diretório raiz do projeto
 3. Rode
 
+
 ```
    npm i
 ```
@@ -28,7 +29,7 @@ npm run docker
 ```
 
 5. por fim:
-
-```
+``
 npm run start:dev
-```
+``` 
+
