@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from 'src/domain/auth/constants';
 import { IAuthService } from 'src/domain/auth/interfaces';
 import { UserDto } from 'src/domain/user/dtos';
+import { User } from 'src/domain/user/entities';
 
 @Injectable()
 export class AuthService implements IAuthService {
