@@ -11,7 +11,6 @@ import { Server, Socket } from 'socket.io';
 import { SocketAuthMiddleware } from 'src/domain/auth/middlewares';
 import { IMessage } from 'src/domain/message/interfaces';
 
-
 @WebSocketGateway({
     cors: { origin: '*' },
     namespace: '/chat',
