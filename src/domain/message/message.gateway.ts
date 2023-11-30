@@ -33,6 +33,7 @@ export class MessageGateway
     @SubscribeMessage('message')
     handleMessage(socket: Socket, mess: IMessage) {
         socket.broadcast.emit('message', mess);
+
     }
 
     handleDisconnect(client: Socket) {

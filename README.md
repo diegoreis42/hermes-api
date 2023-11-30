@@ -1,7 +1,11 @@
+
+![logo hermes](https://github.com/diegoreis42/hermes-api/assets/79876389/0788050c-18b1-498b-a3f5-31612837a85a)
+
+
 ## Hermes API
 
 Bem-vind@ ao projeto Hermes, queremos fazer chats 'great again'
-abaixo vao algumas instruçoes para rodar o projeto. Divirta-se :)
+abaixo vão algumas instruções para rodar o projeto. Divirta-se :)
 
 ### Instalação
 
@@ -26,3 +30,4 @@ npm run docker
 '''
 npm run start:dev
 '''
+
