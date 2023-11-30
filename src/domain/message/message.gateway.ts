@@ -11,7 +11,6 @@ import { Server, Socket } from 'socket.io';
 import { SocketAuthMiddleware } from 'src/domain/auth/middlewares';
 import { IMessage } from 'src/domain/message/interfaces';
 
-
 @WebSocketGateway({
     cors: { origin: '*' },
     namespace: '/chat',
@@ -33,7 +32,6 @@ export class MessageGateway
     @SubscribeMessage('message')
     handleMessage(socket: Socket, mess: IMessage) {
         socket.broadcast.emit('message', mess);
-
     }
 
     handleDisconnect(client: Socket) {
