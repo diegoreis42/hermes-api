@@ -19,15 +19,10 @@ abaixo vão algumas instruções para rodar o projeto. Divirta-se :)
 
 4. execute
 
-'''
 docker buildx build -t db .
 
 npm run docker
 '''
 
 5. por fim:
-
-'''
-npm run start:dev
-'''
 
