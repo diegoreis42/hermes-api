@@ -8,7 +8,7 @@ import { User } from 'src/domain/user/entities';
     imports: [
         TypeOrmModule.forRoot({
             type: 'postgres',
-            host: process.env.HOST,
+            host: 'localhost',
             port: 5432,
             username: 'postgres',
             password: 'pass123',

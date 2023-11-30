@@ -31,10 +31,8 @@ export class MessageGateway
     }
 
     @SubscribeMessage('message')
-    handleMessage(socket: Socket, data: string) {
-        const mess: IMessage = JSON.parse(data);
-
-        this.server.to(mess.room).emit('message', mess.text);
+    handleMessage(socket: Socket, mess: IMessage) {
+        socket.broadcast.emit('message', mess);
     }
 
     handleDisconnect(client: Socket) {
