@@ -27,7 +27,7 @@ export class UsersServices implements IUsersServices {
         if (!user) {
             throw new HttpException(
                 UserErrorsEnum.USER_NOT_EXISTS,
-                HttpStatus.BAD_REQUEST
+                HttpStatus.NOT_FOUND
             );
         }
 
@@ -40,7 +40,7 @@ export class UsersServices implements IUsersServices {
         if (!user) {
             throw new HttpException(
                 UserErrorsEnum.USER_NOT_EXISTS,
-                HttpStatus.BAD_REQUEST
+                HttpStatus.NOT_FOUND
             );
         }
 
