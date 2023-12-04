@@ -11,18 +11,24 @@ abaixo vão algumas instruções para rodar o projeto. Divirta-se :)
 
 1. clone o projeto
 2. vá para o diretório raiz do projeto
+3. 
 4. Rode
-```
-npm i
-```
+   '''
+   npm i
+   '''
+   para instalar as dependencias
 
-para instalar as dependencias
+4. execute
 
-5. Rode
-```
-cp .env.example .env
-```
-6. 
-```
-docker compose up --build
-```
+'''
+docker buildx build -t db .
+
+npm run docker
+'''
+
+5. por fim:
+
+'''
+npm run start:dev
+'''
+
