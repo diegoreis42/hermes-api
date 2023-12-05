@@ -1,5 +1,5 @@
 
 export interface IMessage {
-    text: string;
-    room: string;
+  user: string;
+  content: string;
 }

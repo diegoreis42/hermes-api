@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateUserDto } from 'src/domain/user/dtos';
+
 import {
     IUsersRepository,
     IUsersServices,
@@ -19,3 +20,4 @@ export class UsersUseCase implements IUsersUseCases {
         return this.userRepository.updateOne(id, updateUser);
     }
 }
+
