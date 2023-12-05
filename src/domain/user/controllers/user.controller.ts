@@ -6,7 +6,6 @@ import { UpdateUserDto } from 'src/domain/user/dtos';
 import { IUsersUseCases } from 'src/domain/user/interfaces';
 import { IdDto } from 'src/shared/dtos';
 
-
 @Controller('user')
 @Injectable()
 export class UserController {
