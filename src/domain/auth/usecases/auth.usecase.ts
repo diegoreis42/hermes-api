@@ -59,6 +59,12 @@ export class AuthUseCases implements IAuthUseCases {
     async resetPassword(id: number, user: UpdateUserDto) {
         const authUser = await this.usersService.findById(id);
 
+        if (await bcrypt.compare(user.recoveryKey, authUser.recoveryKey))
+            throw new HttpException(
+                AuthErrorsEnum.WRONG_PASSWORD,
+                HttpStatus.UNAUTHORIZED
+            );
+
         if (await bcrypt.compare(user.password, authUser.password))
             throw new HttpException(
                 AuthErrorsEnum.SAME_PASSWORD,
