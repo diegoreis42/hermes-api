@@ -13,7 +13,7 @@ export class UserController {
 
     @Patch(':id/edit')
     @UseGuards(AuthGuard)
-    updateUser(@Param() userId: IdDto, @Body() updateDto: UpdateUserDto){
+    updateUser(@Param() userId: IdDto, @Body() updateDto: UpdateUserDto) {
         return this.userUseCases.editUser(userId.id, updateDto);
     }
 }
