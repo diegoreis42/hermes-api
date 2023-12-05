@@ -20,26 +20,24 @@ export class AuthUseCases implements IAuthUseCases {
 
     async register(user: RegisterUserDto) {
         await this.usersService.verifyEmailExists(user.email);
-        const recoveryKey = crypto
-            .randomBytes(32)
-            .toString('hex')
-            .substring(0, 7);
+        const recKey = crypto.randomBytes(32).toString('hex').substring(0, 7);
 
-        const { password, ...newUser } = await this.usersRepository.createOne({
-            ...user,
-            password: await bcrypt.hash(
-                user.password,
-                AuthEnum.HASH_SALT_ROUND
-            ),
-            recoveryKey: await bcrypt.hash(
-                recoveryKey,
-                AuthEnum.HASH_SALT_ROUND
-            ),
-        });
+        const { password, recoveryKey, ...newUser } =
+            await this.usersRepository.createOne({
+                ...user,
+                password: await bcrypt.hash(
+                    user.password,
+                    AuthEnum.HASH_SALT_ROUND
+                ),
+                recoveryKey: await bcrypt.hash(
+                    recKey,
+                    AuthEnum.HASH_SALT_ROUND
+                ),
+            });
 
-        const access_token = await this.authService.createAccessToken(newUser);
+        const token = await this.authService.createAccessToken(newUser);
 
-        return { access_token, recoveryKey };
+        return { access_token: token.access_token, recoveryKey: recKey };
     }
 
     async login(user: UserCredentialsDto) {
