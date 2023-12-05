@@ -24,6 +24,10 @@ export class UserDto {
     nickName?: string;
 
     @IsString()
+    @IsOptional()
+    recoveryKey: string;
+
+    @IsString()
     @MinLength(5)
     @IsNotEmpty()
     password: string;

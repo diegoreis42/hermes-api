@@ -9,7 +9,7 @@ import { IdDto } from 'src/shared/dtos';
 @Controller('user')
 @Injectable()
 export class UserController {
-    constructor(private readonly userUseCases: IUsersUseCases){}
+    constructor(private readonly userUseCases: IUsersUseCases) {}
 
     @Patch(':id/edit')
     @UseGuards(AuthGuard)
