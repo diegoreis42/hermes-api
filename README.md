@@ -1,6 +1,4 @@
-
 ![logo hermes](https://github.com/diegoreis42/hermes-api/assets/79876389/0788050c-18b1-498b-a3f5-31612837a85a)
-
 
 ## Hermes API
 
@@ -11,14 +9,14 @@ abaixo vão algumas instruções para rodar o projeto. Divirta-se :)
 
 1. clone o projeto
 2. vá para o diretório raiz do projeto
-3. 
+3.
 4. Rode
    '''
    npm i
    '''
    para instalar as dependencias
 
-4. execute
+5. execute
 
 '''
 docker buildx build -t db .
@@ -31,4 +29,3 @@ npm run docker
 '''
 npm run start:dev
 '''
-

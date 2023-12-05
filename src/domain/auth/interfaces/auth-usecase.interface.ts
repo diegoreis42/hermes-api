@@ -1,4 +1,8 @@
-import { RegisterUserDto, UpdateUserDto, UserCredentialsDto } from 'src/domain/user/dtos';
+import {
+    RegisterUserDto,
+    UpdateUserDto,
+    UserCredentialsDto,
+} from 'src/domain/user/dtos';
 
 export abstract class IAuthUseCases {
     abstract register(user: RegisterUserDto);
