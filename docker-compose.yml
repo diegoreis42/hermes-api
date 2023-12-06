@@ -18,3 +18,8 @@ services:
             - '5432:5432'
         env_file:
             - ./.env
+    front:
+        image: muaddib42/hermes-front
+        ports:
+            - "3000:3000"
+
