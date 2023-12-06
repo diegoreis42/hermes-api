@@ -9,7 +9,14 @@ abaixo vão algumas instruções para rodar o projeto. Divirta-se :)
 
 1. clone o projeto
 2. vá para o diretório raiz do projeto
-3. Rode
+3. Execute:
+
+```
+cp .env.example .env
+```
+
+4. Rode
+
 ```
 docker compose up --build
 ```
