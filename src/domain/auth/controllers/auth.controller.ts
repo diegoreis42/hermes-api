@@ -15,7 +15,7 @@ import { AuthGuard } from 'src/domain/auth/guards';
 import { IAuthUseCases } from 'src/domain/auth/interfaces';
 import {
     RegisterUserDto,
-    UpdateUserDto,
+    UpdateUserPassword,
     UserCredentialsDto,
 } from 'src/domain/user/dtos';
 import { GetUser } from 'src/shared/decorators';
@@ -46,7 +46,7 @@ export class AuthController {
 
     @Patch(':id/reset-password')
     @UseGuards(AuthGuard)
-    resetPassword(@Param() id: IdDto, @Body() userDto: UpdateUserDto) {
+    resetPassword(@Param() id , @Body() userDto: UpdateUserPassword) {
         return this.authUseCases.resetPassword(id.id, userDto);
     }
 }

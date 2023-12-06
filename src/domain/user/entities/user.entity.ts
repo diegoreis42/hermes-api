@@ -15,6 +15,9 @@ export class User {
     @Column('varchar', { length: 50, nullable: true })
     nickName: string;
 
+    @Column({ nullable: true })
+    recoveryKey: string;
+
     @Column()
     password: string;
 }

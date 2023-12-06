@@ -7,7 +7,7 @@ import { IUsersRepository, IUsersServices } from 'src/domain/user/interfaces';
 export class UsersServices implements IUsersServices {
     constructor(private usersRepository: IUsersRepository) {}
 
-    async verifyEmailExists(email: string): Promise<Boolean> {
+    async verifyEmailExists(email: string): Promise<boolean> {
         const user = await this.usersRepository.findOneByEmail(email);
 
         if (user) {

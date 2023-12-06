@@ -1,10 +1,9 @@
-import { Socket } from 'socket.io'; 
+import { Socket } from 'socket.io';
 import { WsAuthGuard } from 'src/domain/auth/guards';
 
 export type SocketIOMiddleware = {
     (client: Socket, next: (err?: Error) => void);
 };
-
 
 export const SocketAuthMiddleware = (): SocketIOMiddleware => {
     return (client, next) => {
@@ -14,5 +13,5 @@ export const SocketAuthMiddleware = (): SocketIOMiddleware => {
         } catch (error) {
             next(error);
         }
-    }
-}
+    };
+};

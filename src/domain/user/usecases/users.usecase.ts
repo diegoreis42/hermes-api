@@ -10,7 +10,7 @@ import {
 @Injectable()
 export class UsersUseCase implements IUsersUseCases {
     constructor(
-        private readonly userService: IUsersServices, 
+        private readonly userService: IUsersServices,
         private readonly userRepository: IUsersRepository
     ) {}
 
@@ -20,4 +20,3 @@ export class UsersUseCase implements IUsersUseCases {
         return this.userRepository.updateOne(id, updateUser);
     }
 }
-
