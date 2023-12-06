@@ -9,8 +9,10 @@ import {
 import { UsersRepository } from 'src/domain/user/repository';
 import { UsersServices } from 'src/domain/user/services';
 import { UsersUseCase } from 'src/domain/user/usecases';
+import { UserController } from './controllers/user.controller';
 
 @Module({
+    controllers: [UserController],
     imports: [TypeOrmModule.forFeature([User])],
     exports: [TypeOrmModule, IUsersServices, IUsersRepository],
     providers: [

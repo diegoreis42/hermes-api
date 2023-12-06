@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { IAuthService, IAuthUseCases } from 'src/domain/auth/interfaces';
 import {
     RegisterUserDto,
-    UpdateUserDto,
+    UpdateUserPassword,
     UserCredentialsDto,
 } from 'src/domain/user/dtos';
 import { IUsersRepository, IUsersServices } from 'src/domain/user/interfaces';
@@ -54,30 +54,21 @@ export class AuthUseCases implements IAuthUseCases {
         );
     }
 
-    async resetPassword(id: number, user: UpdateUserDto) {
+    async resetPassword(id: number, user: UpdateUserPassword) {
         const authUser = await this.usersService.findById(id);
 
-        if (await bcrypt.compare(user.recoveryKey, authUser.recoveryKey))
+        if (!await bcrypt.compare(user.recoveryKey, authUser.recoveryKey))
             throw new HttpException(
-                AuthErrorsEnum.WRONG_PASSWORD,
+                AuthErrorsEnum.WRONG_RECKEY,
                 HttpStatus.UNAUTHORIZED
             );
 
-        if (await bcrypt.compare(user.password, authUser.password))
-            throw new HttpException(
-                AuthErrorsEnum.SAME_PASSWORD,
-                HttpStatus.BAD_REQUEST
-            );
-
-        const { password, ...updatedUser } =
-            await this.usersRepository.updateOne(id, {
-                ...user,
-                password: await bcrypt.hash(
-                    user.password,
-                    AuthEnum.HASH_SALT_ROUND
-                ),
-            });
-
-        return updatedUser;
+        return await this.usersRepository.update(id, {
+            ...authUser,
+            password: await bcrypt.hash(
+                user.password,
+                AuthEnum.HASH_SALT_ROUND
+            ),
+        });
     }
 }
